@@ -147,6 +147,7 @@ int cxd2856er_is_ts_locked_isdbt(struct cxd2856er_demod *demod,
 int cxd2856er_is_ts_locked_isdbs(struct cxd2856er_demod *demod, bool *locked);
 int cxd2856er_read_cnr_raw_isdbt(struct cxd2856er_demod *demod, u16 *value);
 int cxd2856er_read_cnr_raw_isdbs(struct cxd2856er_demod *demod, u16 *value);
+int cxd2856er_read_tmcc_isdbs(struct cxd2856er_demod *demod, u8 *tmcc);
 #ifdef __cplusplus
 }
 #endif

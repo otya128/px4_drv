@@ -489,6 +489,24 @@ static long ptx_chrdev_unlocked_ioctl(struct file *file,
 		break;
 	}
 
+	case PTX_READ_ISDB_S_TMCC:
+	{
+		struct ptx_isdb_s_tmcc tmcc = { 0 };
+
+		if (chrdev->ops && chrdev->ops->read_isdb_s_tmcc)
+			ret = chrdev->ops->read_isdb_s_tmcc(chrdev, &tmcc);
+		else
+			ret = -ENOSYS;
+
+		if (ret)
+			break;
+
+		if (copy_to_user((void *)arg, &tmcc, sizeof(tmcc)))
+			ret = -EFAULT;
+
+		break;
+	}
+
 #if 0
 	case PTXT_GET_INFO:
 		break;

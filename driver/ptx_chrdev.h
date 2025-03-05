@@ -43,6 +43,7 @@ struct ptx_chrdev_operations {
 	int (*read_signal_strength)(struct ptx_chrdev *chrdev, u32 *value);
 	int (*read_cnr)(struct ptx_chrdev *chrdev, u32 *value);
 	int (*read_cnr_raw)(struct ptx_chrdev *chrdev, u32 *value);
+	int (*read_isdb_s_tmcc)(struct ptx_chrdev *chrdev, struct ptx_isdb_s_tmcc *tmcc);
 };
 
 #define PTX_CHRDEV_SAT_SET_STREAM_ID_BEFORE_TUNE	0x00000010

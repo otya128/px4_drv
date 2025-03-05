@@ -836,6 +836,22 @@ static int pxmlt_chrdev_read_cnr_raw(struct ptx_chrdev *chrdev, u32 *value)
 	return ret;
 }
 
+static int pxmlt_chrdev_read_isdb_s_tmcc(struct ptx_chrdev *chrdev, struct ptx_isdb_s_tmcc *tmcc)
+{
+	int ret = 0;
+	struct pxmlt_chrdev *chrdevm = chrdev->priv;
+
+	switch (chrdev->current_system) {
+	case PTX_ISDB_S_SYSTEM:
+		ret = cxd2856er_read_tmcc_isdbs(&chrdevm->cxd2856er, (u8 *)tmcc);
+		break;
+	default:
+		ret = -EINVAL;
+		break;
+	}
+	return ret;
+}
+
 static struct ptx_chrdev_operations pxmlt_chrdev_ops = {
 	.init = pxmlt_chrdev_init,
 	.term = pxmlt_chrdev_term,
@@ -848,7 +864,8 @@ static struct ptx_chrdev_operations pxmlt_chrdev_ops = {
 	.set_capture = pxmlt_chrdev_set_capture,
 	.read_signal_strength = NULL,
 	.read_cnr = NULL,
-	.read_cnr_raw = pxmlt_chrdev_read_cnr_raw
+	.read_cnr_raw = pxmlt_chrdev_read_cnr_raw,
+	.read_isdb_s_tmcc = pxmlt_chrdev_read_isdb_s_tmcc
 };
 
 static const struct {

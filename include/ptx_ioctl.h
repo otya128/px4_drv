@@ -25,6 +25,21 @@ struct ptx_freq {
 	int slot;
 };
 
+struct ptx_isdb_s_tmcc {
+	__u8 change;
+	struct {
+		__u8 mod_code_rate;
+		__u8 num_slots;
+	} mode[4];
+	__u8 relative_ts_number[24];
+	struct {
+		__u8 high;
+		__u8 low;
+	} tsid[8];
+	__u8 flags;
+	__u8 extension[8];
+};
+
 #define PTX_SET_CHANNEL		_IOW(0x8d, 0x01, struct ptx_freq)
 #define PTX_START_STREAMING	_IO(0x8d, 0x02)
 #define PTX_STOP_STREAMING	_IO(0x8d, 0x03)
@@ -32,6 +47,7 @@ struct ptx_freq {
 #define PTX_ENABLE_LNB_POWER	_IOW(0x8d, 0x05, int)
 #define PTX_DISABLE_LNB_POWER	_IO(0x8d, 0x06)
 #define PTX_SET_SYSTEM_MODE	_IOW(0x8d, 0x0b, int)
+#define PTX_READ_ISDB_S_TMCC	_IOR(0x8d, 0x20, struct ptx_isdb_s_tmcc)
 
 // extended ioctls
 

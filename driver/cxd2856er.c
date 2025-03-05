@@ -1139,3 +1139,16 @@ int cxd2856er_read_cnr_raw_isdbs(struct cxd2856er_demod *demod, u16 *value)
 
 	return 0;
 }
+
+int cxd2856er_read_tmcc_isdbs(struct cxd2856er_demod *demod, u8 *tmcc)
+{
+	int ret = 0;
+
+	ret = cxd2856er_write_slvt_reg(demod, 0x00, 0xc0);
+	if (ret)
+		return ret;
+
+	ret = cxd2856er_read_slvt_regs(demod, 0x10, tmcc, 58);
+
+	return ret;
+}
